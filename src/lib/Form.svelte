@@ -2,9 +2,24 @@
     import Button from "$lib/Button.svelte";
   
     let name, email, password1, password2 = "";
+
+    function validateData() {
+      if (!name || !email || !password1 || !password2) {
+        alert("All fields must be filled!");
+        return;
+      }
+  
+      if (password1 !== password2) {
+        alert("Passwords do not match!");
+        return;
+      }
+  
+      // If form is filled and password matches
+      window.location.href = "/success";
+    }
   </script>
 
-<form class="m-auto mt-12 flex flex-col w-[45%]" id="data-form" action="POST">
+<form class="m-auto mt-12 flex flex-col w-[45%]" on:submit|preventDefault={validateData} id="data-form" action="POST">
     <label class="font-bold text-[16px] mb-1" for="user-name">Name</label>
     <input class="border border-[#00000099] rounded-[8px] mb-8 pl-2 h-[2.3em]" type="text" id="user-name" bind:value={name} placeholder="Enter your name"
     />
